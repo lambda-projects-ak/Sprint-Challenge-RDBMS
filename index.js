@@ -134,6 +134,8 @@ server.delete('/api/project/:id', (req, res) => {
     );
 });
 
-server.listen(4000, () => {
+const port = process.env.PORT || 4000;
+
+server.listen(port, () => {
   console.log('*** Server running on 4000 ***');
 });
