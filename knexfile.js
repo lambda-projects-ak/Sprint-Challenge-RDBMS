@@ -6,11 +6,11 @@ module.exports = {
     useNullAsDefault: true,
     connection: {
       filename: './data/dev.sqlite3'
-    }
-  },
-  migrations: {
-    directory: './data/migrations',
-    tableName: 'dbmigrations'
-  },
-  seeds: { directory: './data/seeds' }
+    },
+    migrations: {
+      directory: './data/migrations',
+      tableName: 'dbmigrations'
+    },
+    seeds: { directory: './data/seeds' }
+  }
 };
