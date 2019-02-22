@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
       .notNullable();
     table.text('description').notNullable();
     table.boolean('completed').notNullable();
-    tables.timestamps(true, true);
+    table.timestamps(true, true);
   });
 };
 
