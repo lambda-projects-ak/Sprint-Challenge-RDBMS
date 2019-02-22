@@ -23,7 +23,7 @@ server.get('/api/projects', (req, res) => {
     );
 });
 
-server.get('/api/projects/:id', (req, res) => {
+server.get('/api/project/:id', (req, res) => {
   const id = req.params.id;
   project
     .getById(id)
@@ -36,7 +36,7 @@ server.get('/api/projects/:id', (req, res) => {
     );
 });
 
-server.post('/api/projects', (req, res) => {
+server.post('/api/project', (req, res) => {
   const newProject = req.body;
   const { name, description } = req.body;
 
@@ -69,7 +69,7 @@ server.get('/api/actions', (req, res) => {
     );
 });
 
-server.get('/api/actions/:id', (req, res) => {
+server.get('/api/action/:id', (req, res) => {
   const id = req.params.id;
   action
     .getById(id)
@@ -90,7 +90,7 @@ server.get('/api/actions/:id', (req, res) => {
     );
 });
 
-server.post('/api/actions', (req, res) => {
+server.post('/api/action', (req, res) => {
   const newAction = req.body;
   const { description, fk } = req.body;
 
@@ -107,6 +107,29 @@ server.post('/api/actions', (req, res) => {
       res.status(500).json({
         success: false,
         message: 'Unable to add action. Please try again.'
+      })
+    );
+});
+
+server.delete('/api/project/:id', (req, res) => {
+  const id = req.params.id;
+
+  project
+    .remove(id)
+    .then(project => {
+      if (!project) {
+        res
+          .status(404)
+          .json({ success: false, message: 'No project found with that id' });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    })
+    .catch(
+      res.status(500).json({
+        success: false,
+        message:
+          'Unable to delete project. This project may have associated actions.'
       })
     );
 });

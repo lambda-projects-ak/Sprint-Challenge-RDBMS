@@ -3,8 +3,8 @@ const db = require('../dbConfig');
 module.exports = {
   get,
   getById,
-  add
-  // remove,
+  add,
+  remove
   // update
 };
 
@@ -18,7 +18,7 @@ async function getById(id) {
     .where({ id })
     .first();
   const actions = await db('action as a')
-    .select('a.id', 'a.description', 'a.notes', 'a.completed')
+    .select('a.id', 'a.description', 'a.completed')
     .where('a.fk', '=', id);
 
   return { ...project, actions };
@@ -28,6 +28,12 @@ function add(project) {
   return db('project')
     .insert(project)
     .then(ids => getById(ids[0]));
+}
+
+function remove(id) {
+  return db('project')
+    .where({ id })
+    .delete();
 }
 
 // select p.id as projectId, p.name as projectName, p.description as projectDescription,
