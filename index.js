@@ -56,6 +56,27 @@ server.get('/api/actions', (req, res) => {
     );
 });
 
+server.post('/api/actions', (req, res) => {
+  const newAction = req.body;
+  const { description, fk } = req.body;
+
+  if (!description || !fk) {
+    res
+      .status(500)
+      .json({ success: false, message: 'Name and description required.' });
+  }
+
+  action
+    .add(newAction)
+    .then(action => res.status(200).json({ success: true, action }))
+    .catch(err =>
+      res.status(500).json({
+        success: false,
+        message: 'Unable to add action. Please try again.'
+      })
+    );
+});
+
 server.listen(4000, () => {
   console.log('*** Server running on 4000 ***');
 });
