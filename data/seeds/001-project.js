@@ -1,13 +1,23 @@
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
+  return knex('project')
+    .del()
+    .then(function() {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('project').insert([
+        {
+          id: 1,
+          name: 'Finish Lambda School',
+          description: 'Self explanatory.',
+          completed: false
+        },
+        {
+          id: 2,
+          name: 'Make Tacos',
+          description:
+            'This project is no joke. It is key to finishing Lambda School.',
+          completed: false
+        }
       ]);
     });
 };

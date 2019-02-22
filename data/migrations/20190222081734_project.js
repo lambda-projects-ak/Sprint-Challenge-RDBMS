@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       .unique()
       .notNullable();
     table.text('description').notNullable();
-    table.boolean('completed').notNullable();
+    table.boolean('completed').notNullable(); // note, db returns 0 or 1
     table.timestamps(true, true);
   });
 };
