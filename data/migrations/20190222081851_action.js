@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.text('description').notNullable();
     table.text('notes');
-    table.boolean('completed').notNullable(); // note, db returns 0 or 1
+    table.boolean('completed', false); // note, db returns 0 or 1
     table
       .integer('fk')
       .unsigned()
