@@ -12,10 +12,16 @@ function get() {
   return db('project');
 }
 
-function getById(id) {
-  return db('project')
+async function getById(id) {
+  const project = await db('project as p')
+    .select('p.id', 'p.name', 'p.description', 'p.completed')
     .where({ id })
     .first();
+  const actions = await db('action as a')
+    .select('a.id', 'a.description', 'a.notes', 'a.completed')
+    .where('a.fk', '=', id);
+
+  return { ...project, actions };
 }
 
 function add(project) {

@@ -23,6 +23,19 @@ server.get('/api/projects', (req, res) => {
     );
 });
 
+server.get('/api/projects/:id', (req, res) => {
+  const id = req.params.id;
+  project
+    .getById(id)
+    .then(project => res.status(200).json({ success: true, project }))
+    .catch(err =>
+      res.status(500).json({
+        success: false,
+        message: 'Unable to retrieve project. Please try again.'
+      })
+    );
+});
+
 server.post('/api/projects', (req, res) => {
   const newProject = req.body;
   const { name, description } = req.body;
