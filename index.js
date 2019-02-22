@@ -69,6 +69,27 @@ server.get('/api/actions', (req, res) => {
     );
 });
 
+server.get('/api/actions/:id', (req, res) => {
+  const id = req.params.id;
+  action
+    .getById(id)
+    .then(action => {
+      if (!action) {
+        res
+          .status(404)
+          .json({ success: false, message: 'No action found with that id' });
+      } else {
+        res.status(200).json({ success: true, action });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({
+        success: false,
+        message: 'Unable to retrieve action. Please try again.'
+      })
+    );
+});
+
 server.post('/api/actions', (req, res) => {
   const newAction = req.body;
   const { description, fk } = req.body;
