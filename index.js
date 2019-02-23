@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -60,6 +62,20 @@ server.post('/api/project', (req, res) => {
 server.get('/api/actions', (req, res) => {
   action
     .get()
+    .then(actions => res.status(200).json({ success: true, actions }))
+    .catch(err =>
+      res.status(500).json({
+        success: false,
+        message: 'Unable to retrieve actions. Please try again.'
+      })
+    );
+});
+
+server.get('/api/actions/page/:pageNumber', (req, res) => {
+  const pageNumber = req.params.pageNumber;
+
+  action
+    .getByPage(pageNumber)
     .then(actions => res.status(200).json({ success: true, actions }))
     .catch(err =>
       res.status(500).json({
