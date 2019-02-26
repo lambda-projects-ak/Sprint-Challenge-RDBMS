@@ -24,6 +24,8 @@ async function getById(id) {
   return { ...project, actions };
 }
 
+// Promise.all([project, actions]).then(res =>)
+
 function add(project) {
   return db('project')
     .insert(project)
